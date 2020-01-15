@@ -2,16 +2,16 @@ const express = require('express');
 const router = express.Router();
 
 // Subrouters;
-const playersRouter = require('./players');
-const teamsRouter = require('./teams');
-const trainersRouter = require('./trainers');
-const gamesRouter = require('./games');
+const studentsRouter = require('./students');
+const campusesRouter = require('./campuses');
 
 // Mount our subrouters to assemble our apiRouter;
-router.use('/players', playersRouter);
-router.use('/teams', teamsRouter);
-router.use('/trainers', trainersRouter);
-router.use('/games', gamesRouter);
+router.use('/students', studentsRouter);
+router.use('/campuses', campusesRouter);
+
+router.get('/', (req, res, next) =>  {
+    res.send("Hello");
+});
 
 // Error handling middleware;
 router.use((req, res, next) => {

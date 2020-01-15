@@ -86,5 +86,8 @@ const bootApp = async () => {
 // Main function invocation;
 bootApp();
 
+const port = 5000;
+app.listen(port, () => console.log(`Server up and running on port ${port} !`));
+
 // Export our app, so that it can be imported in the www file;
 module.exports = app;

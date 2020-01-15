@@ -1,34 +1,34 @@
 // Here, we can prepare to register our models, set up associations between tables, and generate a barrel file for the models;
 
-const Player = require('./player');
-const Coach = require('./coach');
-const Team = require('./team');
-const Trainer = require('./trainer');
-const Game = require('./game');
+// const Player = require('./player');
+// const Coach = require('./coach');
+// const Team = require('./team');
+// const Trainer = require('./trainer');
+// const Game = require('./game');
 
 // Associations;
 // Source.association(Target);
 
 // O:M;
-Team.hasMany(Player); // A one-to-many relationship that adds the column titled "teamId" to the table of players;
-Player.belongsTo(Team); // A one-to-one relationship that adds the column titled "teamId" to the table of players;
+// Team.hasMany(Player); // A one-to-many relationship that adds the column titled "teamId" to the table of players;
+// Player.belongsTo(Team); // A one-to-one relationship that adds the column titled "teamId" to the table of players;
 
 // O:O;
-Team.hasOne(Coach); // A one-to-one relationship that adds the column titled "teamId" to the table of coaches;
-Coach.belongsTo(Team); // A one-to-one relationship that adds the column titled "teamId" to the table of coaches;
+// Team.hasOne(Coach); // A one-to-one relationship that adds the column titled "teamId" to the table of coaches;
+// Coach.belongsTo(Team); // A one-to-one relationship that adds the column titled "teamId" to the table of coaches;
 
 // N:M;
-Trainer.belongsToMany(Player, { through: 'TrainersPlayers' }); // A many-to-many relationship that generates a JOIN table called TrainersPlayers, which contains a column titled trainerId and a column titled playerId;
-Player.belongsToMany(Trainer, { through: 'TrainersPlayers' }); // A many-to-many relationship that generates a JOIN table called TrainersPlayers, which contains a column titled trainerId and a column titled playerId;
+// Trainer.belongsToMany(Player, { through: 'TrainersPlayers' }); // A many-to-many relationship that generates a JOIN table called TrainersPlayers, which contains a column titled trainerId and a column titled playerId;
+// Player.belongsToMany(Trainer, { through: 'TrainersPlayers' }); // A many-to-many relationship that generates a JOIN table called TrainersPlayers, which contains a column titled trainerId and a column titled playerId;
 
 // O:O with a double join on the same table;
 // Team.belongsTo(Game, { as: 'HomeTeam', foreignKey: 'homeTeamId' }); // A one-to-one relationship that adds the column titled "homeTeamId" to the table of Games (When eager-loading, the model and the query need to use the same alias, which is the value of the "as" property);
 // Team.belongsTo(Game, { as: 'AwayTeam', foreignKey: 'awayTeamId' }); // A one-to-one relationship that adds the column titled "awayTeamId" to the table of Games (When eager-loading, the model and the query need to use the same alias, which is the value of the "as" property);
 
-Game.belongsTo(Team, { as: 'HomeTeam', foreignKey: 'homeTeamId' });
-Game.belongsTo(Team, { as: 'AwayTeam', foreignKey: 'awayTeamId' });
-Team.hasMany(Game, { as: 'HomeGames', foreignKey: 'homeTeamId' });
-Team.hasMany(Game, { as: 'AwayGames', foreignKey: 'awayTeamId' });
+// Game.belongsTo(Team, { as: 'HomeTeam', foreignKey: 'homeTeamId' });
+// Game.belongsTo(Team, { as: 'AwayTeam', foreignKey: 'awayTeamId' });
+// Team.hasMany(Game, { as: 'HomeGames', foreignKey: 'homeTeamId' });
+// Team.hasMany(Game, { as: 'AwayGames', foreignKey: 'awayTeamId' });
 
 /*
 
@@ -107,10 +107,10 @@ Player.createTrainer;
 
 */
 
-module.exports = {
-  Player,
-  Coach,
-  Team,
-  Trainer,
-  Game
-};
+// module.exports = {
+//   Player,
+//   Coach,
+//   Team,
+//   Trainer,
+//   Game
+// };
