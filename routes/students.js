@@ -35,4 +35,37 @@ router.post('/',  (req, res, next) =>  {
     })
 });
 
+router.put('/',  (req, res, next) =>  {
+
+    Student.update({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        gpa: req.body.gpa
+    },
+
+    {where: {id: req.body.id}}
+
+    )
+    .then( () => {
+        res.status(200).json({
+           data: "Successfully Updated"
+        })
+    })
+});
+
+router.delete('/:id',  (req, res, next) =>  {
+
+    Student.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then( () => {
+        res.status(200).json({
+            msg: "Succesfully deleted"
+        })
+    })
+});
+
 module.exports = router;
