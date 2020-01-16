@@ -1,13 +1,13 @@
 // Here, we can prepare to register our models, set up associations between tables, and generate a barrel file for the models;
 
-// const Player = require('./player');
-// const Coach = require('./coach');
-// const Team = require('./team');
-// const Trainer = require('./trainer');
-// const Game = require('./game');
+const Student = require("./student");
+const Campus = require("./campus");
 
 // Associations;
 // Source.association(Target);
+
+Campus.hasMany(Student);
+Student.belongsTo(Campus)
 
 // O:M;
 // Team.hasMany(Player); // A one-to-many relationship that adds the column titled "teamId" to the table of players;
@@ -107,10 +107,7 @@ Player.createTrainer;
 
 */
 
-// module.exports = {
-//   Player,
-//   Coach,
-//   Team,
-//   Trainer,
-//   Game
-// };
+module.exports = {
+  Student,
+  Campus,
+};
