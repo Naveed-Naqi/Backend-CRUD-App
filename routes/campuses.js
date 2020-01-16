@@ -1,43 +1,69 @@
 const express = require('express');
 const router = express.Router();
+const Campus = require("../database/models/campus");
 
-// // Find all the players;
-// router.get('/', function(req, res, next) {
-//   Player.findAll()
-//     .then(players => res.json(players))
-//     .catch(next)
-// });
+router.get('/',  (req, res, next) =>  {
+    Campus.findAll()
+    .then(campuses => res.status(200).json(campuses))
+});
 
-// // Find a specific, individual player;
-// router.get('/:id', function(req, res, next) {
-//   Player.findById(req.params.id) // findById() is deprecated, so findByPk (primary key) is more preferred moving forward;
-//     .then(player => res.json(player))
-//     .catch(next)
-// });
+router.get('/:id',  (req, res, next) =>  {
+    const id = req.params.id;
 
-// // Find all of the trainers who train a particular player;
-// // TODO: Provide an example of how to remove the JOIN table from coming up in the result from the query;
-// router.get('/:id/trainers', async function(req, res, next) {
-//   let foundPlayer;
+    Campus.findByPk(id)
+    .then( (campus) => {
+        res.status(200).json(campus)
+    })
+});
 
-//   try {
-//     foundPlayer = await Player.findOne({ where: { id: req.params.id } });
-//   }
-//   catch (err) {
-//     next(err);
-//   }
+router.get('/:id/students',  (req, res, next) =>  {
+    const id = req.params.id;
 
-//   let trainersOfPlayer;
+    Campus.findByPk(id)
+    .then( (campus) => {
 
-//   try {
-//     trainersOfPlayer = await foundPlayer.getTrainers();
-//   }
-//   catch (err) {
-//     next(err);
-//   }
+        campus.getStudents()
+        .then( (students) => {
+            res.status(200).json(students)
+        })
+        
+    })
+});
 
-//   res.status(200).json(trainersOfPlayer);
-// });
+router.post('/',  (req, res, next) =>  {
 
-// Export our router, so that it can be imported to construct our apiRouter;
+    Campus.create({
+        name: req.body.name
+    })
+    .then( (campus) => {
+        res.status(200).json(campus)
+    })
+});
+
+router.put('/',  (req, res, next) =>  {
+
+    Campus.update({
+        name: req.body.name
+    },
+
+    {where: {id: req.body.id}}
+
+    )
+    .then( () => {
+        res.status(200).json("Successfully Updated!")
+    })
+});
+
+router.delete('/:id',  (req, res, next) =>  {
+
+    Campus.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then( () => {
+        res.status(200).json("Successfully Deleted!")
+    })
+});
+
 module.exports = router;
