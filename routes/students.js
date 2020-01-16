@@ -4,9 +4,7 @@ const Student = require("../database/models/student");
 
 router.get('/',  (req, res, next) =>  {
     Student.findAll()
-    .then(students => res.status(200).json({
-        data: students,
-    }))
+    .then(students => res.status(200).json(students))
 });
 
 router.get('/:id',  (req, res, next) =>  {
@@ -14,9 +12,21 @@ router.get('/:id',  (req, res, next) =>  {
 
     Student.findByPk(id)
     .then( (student) => {
-        res.status(200).json({
-            data: student
+        res.status(200).json(student)
+    })
+});
+
+router.get('/:id/campus',  (req, res, next) =>  {
+    const id = req.params.id;
+
+    Student.findByPk(id)
+    .then( (student) => {
+
+        student.getCampus()
+        .then( (campus) => {
+            res.status(200).json(campus)
         })
+        
     })
 });
 
@@ -29,9 +39,7 @@ router.post('/',  (req, res, next) =>  {
         gpa: req.body.gpa
     })
     .then( (student) => {
-        res.status(200).json({
-            data: student
-        })
+        res.status(200).json(student)
     })
 });
 
@@ -48,9 +56,7 @@ router.put('/',  (req, res, next) =>  {
 
     )
     .then( () => {
-        res.status(200).json({
-           data: "Successfully Updated"
-        })
+        res.status(200).json("Successfully Updated!")
     })
 });
 
@@ -62,9 +68,7 @@ router.delete('/:id',  (req, res, next) =>  {
         }
     })
     .then( () => {
-        res.status(200).json({
-            msg: "Succesfully deleted"
-        })
+        res.status(200).json("Successfully Deleted!")
     })
 });
 
