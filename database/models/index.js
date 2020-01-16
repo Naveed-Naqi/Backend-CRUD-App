@@ -7,7 +7,7 @@ const Campus = require("./campus");
 // Source.association(Target);
 
 Campus.hasMany(Student);
-Student.belongsTo(Campus)
+Student.belongsTo(Campus);
 
 // O:M;
 // Team.hasMany(Player); // A one-to-many relationship that adds the column titled "teamId" to the table of players;
