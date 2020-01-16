@@ -1,39 +1,30 @@
-const { Player, Coach, Team, Trainer, Game } = require('../database/models');
+const { Student, Campus } = require('../database/models');
 
-const students = require('../data/students'); // 2 trainers;
-const campuses = require('../data/campuses'); // 6 games;
+const students = require('../data/students'); // 3 students;
+const campuses = require('../data/campuses'); // 2 campuses;
 
-const populatePlayersTable = async (players) => {
-  let tylerrelph10 = await Trainer.create(trainers[0]); // Tyler Relph;
-  let jlawbball = await Trainer.create(trainers[1]); // Jordan Lawley;
+const populateStudentsTable = async () => {
+  let baruch = await Campus.create(campuses[0]); 
+  let hunter = await Campus.create(campuses[1]); 
 
-  for (let i = 0; i < players.length; i++) {
-    let currentPlayer = players[i];
-    let builtPlayer = await Player.build(currentPlayer);
-    // console.log(Object.keys(builtPlayer.__proto__));
+  for (let i = 0; i < students.length; i++) {
+    let currStudent = students[i];
+    let builtStudent = await Student.build(currStudent);
 
-    if (i < 11) {
-      builtPlayer.teamId = 1;
-      await builtPlayer.save();
-      await builtPlayer.addTrainer(tylerrelph10); // Players trained solely by Tyler Relph;
+    if (i < 2) {
+      await builtStudent.save();
+      await builtStudent.setCampus(baruch); // Players trained solely by Tyler Relph;
     }
-    else if (i >= 11 && i < 22) {
-      builtPlayer.teamId = 2;
-      await builtPlayer.save();
-      await builtPlayer.addTrainer(jlawbball); // Players trained solely by Jordan Lawley;
-    }
-    else if (i >= 22 && i < 33) {
-      builtPlayer.teamId = 3;
-      await builtPlayer.save();
-      await builtPlayer.addTrainer(tylerrelph10); // Players trained by both Tyler Relph...;
-      await builtPlayer.addTrainer(jlawbball); // ...and by Jordan Lawley, too;
+    else {
+      await builtStudent.save();
+      await builtStudent.setCampus(hunter); // Players trained solely by Jordan Lawley;
     }
   }
 }
 
 const seedDatabase = async () => {
   try {
-    await populateGamesTable(games);
+    await populateStudentsTable();
     console.log("Successfully seeded!");
     process.exit(0);
   }

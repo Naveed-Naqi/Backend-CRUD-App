@@ -15,10 +15,7 @@ const Student = db.define("student", {
 
   email: {
     type: Sequelize.STRING,
-    args: {
-        unique: true,
-        message: "This student already exists"
-    },
+    unique: true,
     allowNull: false
   },
 

@@ -4,7 +4,7 @@ const campuses = [
     "name": "Hunter College"
   },
   {
-      "name": "Baruch"
+    "name": "Baruch"
   },
  
 ];

@@ -14,8 +14,6 @@ const logger = require('morgan');
 const helmet = require('helmet');
 const compression = require('compression');
 
-const Student = require("./database/models/student");
-
 // Utilities;
 const createLocalDatabase = require('./utilities/createLocalDatabase');
 
@@ -33,9 +31,6 @@ const syncDatabase = () => {
   else {
     console.log('As a reminder, the forced synchronization option is on');
     db.sync()
-        .then( () => {
-            //TEST ADDDING AND DELETING RIGHT HERE
-        })
       .catch(err => {
         if (err.name === 'SequelizeConnectionError') {
           createLocalDatabase();
@@ -90,9 +85,6 @@ const bootApp = async () => {
 
 // Main function invocation;
 bootApp();
-
-const port = 5000;
-app.listen(port, () => console.log(`Server up and running on port ${port} !`));
 
 // Export our app, so that it can be imported in the www file;
 module.exports = app;
